@@ -7,7 +7,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tlabs.md.ptl.ws.soap.*;
+import org.tlabs.md.ptl.ws.service.*;
 
 public class NewUserRegistrationStep {
 

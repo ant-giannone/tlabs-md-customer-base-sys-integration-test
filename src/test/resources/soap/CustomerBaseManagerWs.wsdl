@@ -1,28 +1,20 @@
-<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://soap.ws.ptl.md.tlabs.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CustomerBaseManagerWs" targetNamespace="http://soap.ws.ptl.md.tlabs.org/">
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.ws.ptl.md.tlabs.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CustomerBaseManagerWs" targetNamespace="http://service.ws.ptl.md.tlabs.org/">
   <wsdl:types>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://soap.ws.ptl.md.tlabs.org/" targetNamespace="md-poc.tlabs.org" version="1.0">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.ws.ptl.md.tlabs.org/" targetNamespace="http://service.ws.ptl.md.tlabs.org/" version="1.0">
 
-  <xs:import namespace="http://soap.ws.ptl.md.tlabs.org/"/>
+  <xs:element name="activationAccountRequest" type="tns:activationAccountRequest"/>
 
-  <xs:element name="personalContact" type="ns1:personalContactDTO"/>
+  <xs:element name="activationAccountResponse" type="tns:activationAccountResponse"/>
 
-  <xs:element name="personalCredential" type="ns1:personalCredentialDTO"/>
+  <xs:element name="personalContact" type="tns:personalContactDTO"/>
 
-  <xs:element name="personalData" type="ns1:personalDataDTO"/>
+  <xs:element name="personalCredential" type="tns:personalCredentialDTO"/>
 
-  <xs:element name="userRegistrationRequest" type="ns1:newUserRegistrationRequest"/>
+  <xs:element name="personalData" type="tns:personalDataDTO"/>
 
-  <xs:element name="userRegistrationResponse" type="ns1:newUserRegistrationResponse"/>
+  <xs:element name="userRegistrationRequest" type="tns:newUserRegistrationRequest"/>
 
-
-
-
-
-
-</xs:schema>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://soap.ws.ptl.md.tlabs.org/" xmlns:ns1="md-poc.tlabs.org" targetNamespace="http://soap.ws.ptl.md.tlabs.org/" version="1.0">
-
-  <xs:import namespace="md-poc.tlabs.org"/>
+  <xs:element name="userRegistrationResponse" type="tns:newUserRegistrationResponse"/>
 
   <xs:complexType name="newUserRegistrationRequest">
     <xs:sequence>
@@ -58,18 +50,40 @@
     <xs:sequence>
       <xs:element name="operationCode" type="xs:string"/>
       <xs:element minOccurs="0" name="systemMessage" type="xs:string"/>
-      <xs:element minOccurs="0" name="accountActivationLink" type="xs:anyURI"/>
+      <xs:element name="accountActivationLink" type="xs:anyURI"/>
+      <xs:element name="accountActivationCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="activationAccountRequest">
+    <xs:sequence>
+      <xs:element name="activationCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="activationAccountResponse">
+    <xs:sequence>
+      <xs:element name="operationCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="systemMessage" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 
 </xs:schema>
   </wsdl:types>
-  <wsdl:message name="newUserRegistration">
-    <wsdl:part name="userRegistrationRequest" type="tns:newUserRegistrationRequest">
+  <wsdl:message name="newUserRegistrationResponse">
+    <wsdl:part name="return" type="tns:newUserRegistrationResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="newUserRegistrationResponse">
-    <wsdl:part name="userRegistrationResponse" type="tns:newUserRegistrationResponse">
+  <wsdl:message name="accountActivationResponse">
+    <wsdl:part name="return" type="tns:activationAccountResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="accountActivation">
+    <wsdl:part name="arg0" type="tns:activationAccountRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="newUserRegistration">
+    <wsdl:part name="arg0" type="tns:newUserRegistrationRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="CustomerBaseWs">
@@ -79,16 +93,31 @@
       <wsdl:output message="tns:newUserRegistrationResponse" name="newUserRegistrationResponse">
     </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="accountActivation">
+      <wsdl:input message="tns:accountActivation" name="accountActivation">
+    </wsdl:input>
+      <wsdl:output message="tns:accountActivationResponse" name="accountActivationResponse">
+    </wsdl:output>
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="CustomerBaseManagerWsSoapBinding" type="tns:CustomerBaseWs">
     <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="newUserRegistration">
       <soap:operation soapAction="" style="rpc"/>
       <wsdl:input name="newUserRegistration">
-        <soap:body namespace="http://soap.ws.ptl.md.tlabs.org/" use="literal"/>
+        <soap:body namespace="http://service.ws.ptl.md.tlabs.org/" use="literal"/>
       </wsdl:input>
       <wsdl:output name="newUserRegistrationResponse">
-        <soap:body namespace="http://soap.ws.ptl.md.tlabs.org/" use="literal"/>
+        <soap:body namespace="http://service.ws.ptl.md.tlabs.org/" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="accountActivation">
+      <soap:operation soapAction="" style="rpc"/>
+      <wsdl:input name="accountActivation">
+        <soap:body namespace="http://service.ws.ptl.md.tlabs.org/" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="accountActivationResponse">
+        <soap:body namespace="http://service.ws.ptl.md.tlabs.org/" use="literal"/>
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>

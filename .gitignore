@@ -177,9 +177,9 @@ flycheck_*.el
 # When using Gradle or Maven with auto-import, you should exclude module files,
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
-# .idea/modules.xml
-# .idea/*.iml
-# .idea/modules
+.idea/modules.xml
+.idea/*.iml
+.idea/modules
 
 # CMake
 cmake-build-*/
@@ -536,3 +536,7 @@ gradle-app.setting
 **/build/
 
 # End of https://www.gitignore.io/api/git,osx,vim,svn,node,grunt,emacs,linux,macos,maven,gradle,puppet,ansible,windows,vagrant,eclipse,netbeans,notepadpp,sublimetext,tortoisegit,intellij+all,visualstudiocode
+
+
+### Custom ###
+docker/tlabs-md-platform/cbs/tomcat/conf/Catalina/
