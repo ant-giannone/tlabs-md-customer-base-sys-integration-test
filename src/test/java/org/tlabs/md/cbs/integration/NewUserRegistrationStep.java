@@ -1,4 +1,4 @@
-package org.tlabs.md.ptl.integration;
+package org.tlabs.md.cbs.integration;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -7,7 +7,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tlabs.md.ptl.ws.service.*;
+import org.tlabs.md.cbs.integration.registration.*;
 
 public class NewUserRegistrationStep {
 
@@ -18,14 +18,14 @@ public class NewUserRegistrationStep {
     NewUserRegistrationRequest newUserRegistrationRequest;
     NewUserRegistrationResponse newUserRegistrationResponse;
 
-    CustomerBaseWs customerBaseWs;
+    CustomerBaseRegistrationN customerBaseWs;
 
 
     @Given("Agent software must register a new user.")
     public void prepareSoftwareAgent() throws Throwable {
 
         logger.info("Software Agent Client Preparing");
-        customerBaseWs = new CustomerBaseManagerWs().getCustomerBaseWsImplPort();
+        customerBaseWs = new CustomerBaseRegistrationSN().getCustomerBaseRegistrationPN();
     }
 
     @And("Agent software prepares the registration request by filling it with the following data: Name, Surname, Date of birth, Email, Username and Password.")
@@ -57,7 +57,7 @@ public class NewUserRegistrationStep {
 
         logger.info("SOAP Request Sending");
 
-        newUserRegistrationResponse = customerBaseWs.newUserRegistration(newUserRegistrationRequest);
+        newUserRegistrationResponse = customerBaseWs.newRegistration(newUserRegistrationRequest);
     }
 
     @Then("The system returns a response containing the following information: operation result code, account activation link")

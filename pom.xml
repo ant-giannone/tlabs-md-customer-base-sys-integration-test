@@ -75,6 +75,20 @@
       <version>${org.apache.cxf.version}</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-ws-policy -->
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-ws-policy</artifactId>
+      <version>${org.apache.cxf.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-ws-security -->
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-ws-security</artifactId>
+      <version>${org.apache.cxf.version}</version>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http -->
     <dependency>
       <groupId>org.apache.cxf</groupId>
@@ -133,9 +147,26 @@
               <phase>generate-sources</phase>
               <configuration>
                 <sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>
+                <defaultOptions>
+                  <extraargs>
+                    <extraarg>-impl</extraarg>
+                    <extraarg>-verbose</extraarg>
+                  </extraargs>
+                </defaultOptions>
                 <wsdlOptions>
                   <wsdlOption>
-                    <wsdl>${basedir}/src/test/resources/soap/CustomerBaseManagerWs.wsdl</wsdl>
+                    <wsdl>${basedir}/src/test/resources/soap/customerBaseRegistrationAddress.wsdl</wsdl>
+                    <extraargs>
+                      <extraarg>-p</extraarg>
+                      <extraarg>org.tlabs.md.cbs.integration.registration</extraarg>
+                    </extraargs>
+                  </wsdlOption>
+                  <wsdlOption>
+                    <wsdl>${basedir}/src/test/resources/soap/customerBaseGeneralAddress.wsdl</wsdl>
+                    <extraargs>
+                      <extraarg>-p</extraarg>
+                      <extraarg>org.tlabs.md.cbs.integration.general</extraarg>
+                    </extraargs>
                   </wsdlOption>
                 </wsdlOptions>
               </configuration>

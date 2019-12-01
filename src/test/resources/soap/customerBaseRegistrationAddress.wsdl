@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.ws.ptl.md.tlabs.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CustomerBaseRegistrationSN" targetNamespace="http://service.ws.ptl.md.tlabs.org/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.ws.ptl.md.tlabs.org/" targetNamespace="http://service.ws.ptl.md.tlabs.org/" version="1.0">
+
+  <xs:element name="personalContact" type="tns:personalContactDTO"/>
+
+  <xs:element name="personalCredential" type="tns:personalCredentialDTO"/>
+
+  <xs:element name="personalData" type="tns:personalDataDTO"/>
+
+  <xs:element name="userRegistrationRequest" type="tns:newUserRegistrationRequest"/>
+
+  <xs:element name="userRegistrationResponse" type="tns:newUserRegistrationResponse"/>
+
+  <xs:complexType name="newUserRegistrationRequest">
+    <xs:sequence>
+      <xs:element name="personalData" type="tns:personalDataDTO"/>
+      <xs:element name="personalContact" type="tns:personalContactDTO"/>
+      <xs:element name="personalCredential" type="tns:personalCredentialDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="personalDataDTO">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="surname" type="xs:string"/>
+      <xs:element name="birthDate" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="personalContactDTO">
+    <xs:sequence>
+      <xs:element name="emailAddress" type="xs:string"/>
+      <xs:element minOccurs="0" name="mobilePhoneNumber" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="personalCredentialDTO">
+    <xs:sequence>
+      <xs:element name="username" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="newUserRegistrationResponse">
+    <xs:sequence>
+      <xs:element name="operationCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="systemMessage" type="xs:string"/>
+      <xs:element name="accountActivationLink" type="xs:anyURI"/>
+      <xs:element name="accountActivationCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="newRegistrationResponse">
+    <wsdl:part name="newUserRegistrationResponse" type="tns:newUserRegistrationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="newRegistration">
+    <wsdl:part name="userRegistrationRequest" type="tns:newUserRegistrationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CustomerBaseRegistrationN">
+    <wsdl:operation name="newRegistration">
+      <wsdl:input message="tns:newRegistration" name="newRegistration">
+    </wsdl:input>
+      <wsdl:output message="tns:newRegistrationResponse" name="newRegistrationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CustomerBaseRegistrationSNSoapBinding" type="tns:CustomerBaseRegistrationN">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="newRegistration">
+      <soap:operation soapAction="" style="rpc"/>
+      <wsdl:input name="newRegistration">
+        <soap:body namespace="http://service.ws.ptl.md.tlabs.org/" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="newRegistrationResponse">
+        <soap:body namespace="http://service.ws.ptl.md.tlabs.org/" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CustomerBaseRegistrationSN">
+    <wsdl:port binding="tns:CustomerBaseRegistrationSNSoapBinding" name="CustomerBaseRegistrationPN">
+      <soap:address location="http://localhost:8888/tlabs-md-cbs/customerBaseRegistrationAddress"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

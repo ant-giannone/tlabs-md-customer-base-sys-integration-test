@@ -1,4 +1,4 @@
-package org.tlabs.md.ptl.integration;
+package org.tlabs.md.cbs.integration;
 
 public class IdentificationProcedureDoctorProfileStep {
 }
