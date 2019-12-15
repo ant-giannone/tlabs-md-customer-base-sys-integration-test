@@ -57,7 +57,7 @@ public class NewUserRegistrationStep {
 
         logger.info("SOAP Request Sending");
 
-        newUserRegistrationResponse = customerBaseWs.newRegistration(newUserRegistrationRequest);
+        newUserRegistrationResponse = customerBaseWs.newRegistrationOpN(newUserRegistrationRequest);
     }
 
     @Then("The system returns a response containing the following information: operation result code, account activation link")

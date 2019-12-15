@@ -55,18 +55,6 @@ public class IdentificationProcedureDoctorProfileStep {
     public void prepareCredentials() throws Throwable {
 
         logger.info("SOAP Credentials preparing");
-
-        Client client = ClientProxy.getClient(customerBaseWs);
-        Endpoint cxfEndpoint = client.getEndpoint();
-        Map outProps = new HashMap();
-
-        outProps.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN);
-        outProps.put(WSHandlerConstants.USER, "coder");
-        outProps.put(WSHandlerConstants.PASSWORD_TYPE, WSConstants.PW_TEXT);
-        outProps.put(WSHandlerConstants.PW_CALLBACK_CLASS, ClientPasswordCallback.class.getName());
-
-        WSS4JOutInterceptor wssOut = new WSS4JOutInterceptor(outProps);
-        cxfEndpoint.getOutInterceptors().add(wssOut);
     }
 
     @When("Agent software sends the update request.")
@@ -74,7 +62,7 @@ public class IdentificationProcedureDoctorProfileStep {
 
         logger.info("SOAP Request Sending");
 
-        identificationProcedureResponse = this.customerBaseWs.identificationProcedure(identificationProcedureRequest);
+        identificationProcedureResponse = this.customerBaseWs.identificationProcedureOpN(identificationProcedureRequest);
     }
 
     @Then("The system responds with the following information: request result code, request status, message info.")

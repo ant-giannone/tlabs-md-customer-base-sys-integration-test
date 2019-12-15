@@ -53,19 +53,7 @@ public class AccountActivationStep {
 
         logger.info("SOAP Request Sending");
 
-        Client client = ClientProxy.getClient(customerBaseWs);
-        Endpoint cxfEndpoint = client.getEndpoint();
-        Map outProps = new HashMap();
-
-        outProps.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN);
-        outProps.put(WSHandlerConstants.USER, "coder");
-        outProps.put(WSHandlerConstants.PASSWORD_TYPE, WSConstants.PW_TEXT);
-        outProps.put(WSHandlerConstants.PW_CALLBACK_CLASS, ClientPasswordCallback.class.getName());
-
-        WSS4JOutInterceptor wssOut = new WSS4JOutInterceptor(outProps);
-        cxfEndpoint.getOutInterceptors().add(wssOut);
-
-        activationAccountResponse = this.customerBaseWs.accountActivation(activationAccountRequest);
+        activationAccountResponse = this.customerBaseWs.accountActivationOpN(activationAccountRequest);
     }
 
     @Then("The system check the temporary token that carrier expiration time and identity info and returns a response containing the following information: operation result code, message info")

@@ -1,16 +1,32 @@
-<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.ws.ptl.md.tlabs.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CustomerBaseGeneralSN" targetNamespace="http://service.ws.ptl.md.tlabs.org/">
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.ws.md.tlabs.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CustomerBaseGeneralSN" targetNamespace="http://service.ws.md.tlabs.org/">
   <wsdl:types>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.ws.ptl.md.tlabs.org/" targetNamespace="http://service.ws.ptl.md.tlabs.org/" version="1.0">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.ws.md.tlabs.org/" elementFormDefault="unqualified" targetNamespace="http://service.ws.md.tlabs.org/" version="1.0">
 
-  <xs:element name="activationAccountRequest" type="tns:activationAccountRequest"/>
+  <xs:element name="accountActivationOpN" type="tns:accountActivationOpN"/>
 
-  <xs:element name="activationAccountResponse" type="tns:activationAccountResponse"/>
+  <xs:element name="accountActivationOpNResponse" type="tns:accountActivationOpNResponse"/>
+
+  <xs:element name="identificationProcedureOpN" type="tns:identificationProcedureOpN"/>
+
+  <xs:element name="identificationProcedureOpNResponse" type="tns:identificationProcedureOpNResponse"/>
+
+  <xs:complexType name="identificationProcedureOpN">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="identificationProcedureRequest" type="tns:identificationProcedureRequest"/>
+    </xs:sequence>
+  </xs:complexType>
 
   <xs:complexType name="identificationProcedureRequest">
     <xs:sequence>
       <xs:element minOccurs="0" name="fiscalCode" type="xs:string"/>
       <xs:element minOccurs="0" name="mainMedicalQualification" type="xs:string"/>
       <xs:element minOccurs="0" name="personalIdentificationCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="identificationProcedureOpNResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:identificationProcedureResponse"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -22,75 +38,87 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="accountActivationOpN">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="activationAccountRequest" type="tns:activationAccountRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="activationAccountRequest">
     <xs:sequence>
-      <xs:element name="activationCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="activationCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="accountActivationOpNResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:activationAccountResponse"/>
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="activationAccountResponse">
     <xs:sequence>
-      <xs:element name="operationCode" type="xs:string"/>
-      <xs:element minOccurs="0" name="systemMessage" type="xs:string"/>
+      <xs:element minOccurs="0" name="messageInfo" type="xs:string"/>
+      <xs:element minOccurs="0" name="operationCode" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 
 </xs:schema>
   </wsdl:types>
-  <wsdl:message name="accountActivationResponse">
-    <wsdl:part name="activationAccountResponse" type="tns:activationAccountResponse">
+  <wsdl:message name="identificationProcedureOpN">
+    <wsdl:part element="tns:identificationProcedureOpN" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="accountActivation">
-    <wsdl:part name="activationAccountRequest" type="tns:activationAccountRequest">
+  <wsdl:message name="identificationProcedureOpNResponse">
+    <wsdl:part element="tns:identificationProcedureOpNResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="identificationProcedure">
-    <wsdl:part name="identificationProcedureRequest" type="tns:identificationProcedureRequest">
+  <wsdl:message name="accountActivationOpNResponse">
+    <wsdl:part element="tns:accountActivationOpNResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="identificationProcedureResponse">
-    <wsdl:part name="identificationProcedureResponse" type="tns:identificationProcedureResponse">
+  <wsdl:message name="accountActivationOpN">
+    <wsdl:part element="tns:accountActivationOpN" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="CustomerBaseGeneralN">
-    <wsdl:operation name="identificationProcedure">
-      <wsdl:input message="tns:identificationProcedure" name="identificationProcedure">
+    <wsdl:operation name="identificationProcedureOpN">
+      <wsdl:input message="tns:identificationProcedureOpN" name="identificationProcedureOpN">
     </wsdl:input>
-      <wsdl:output message="tns:identificationProcedureResponse" name="identificationProcedureResponse">
+      <wsdl:output message="tns:identificationProcedureOpNResponse" name="identificationProcedureOpNResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="accountActivation">
-      <wsdl:input message="tns:accountActivation" name="accountActivation">
+    <wsdl:operation name="accountActivationOpN">
+      <wsdl:input message="tns:accountActivationOpN" name="accountActivationOpN">
     </wsdl:input>
-      <wsdl:output message="tns:accountActivationResponse" name="accountActivationResponse">
+      <wsdl:output message="tns:accountActivationOpNResponse" name="accountActivationOpNResponse">
     </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="CustomerBaseGeneralSNSoapBinding" type="tns:CustomerBaseGeneralN">
-    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="identificationProcedure">
-      <soap:operation soapAction="" style="rpc"/>
-      <wsdl:input name="identificationProcedure">
-        <soap:body namespace="http://service.ws.ptl.md.tlabs.org/" use="literal"/>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="identificationProcedureOpN">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="identificationProcedureOpN">
+        <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="identificationProcedureResponse">
-        <soap:body namespace="http://service.ws.ptl.md.tlabs.org/" use="literal"/>
+      <wsdl:output name="identificationProcedureOpNResponse">
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="accountActivation">
-      <soap:operation soapAction="" style="rpc"/>
-      <wsdl:input name="accountActivation">
-        <soap:body namespace="http://service.ws.ptl.md.tlabs.org/" use="literal"/>
+    <wsdl:operation name="accountActivationOpN">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="accountActivationOpN">
+        <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="accountActivationResponse">
-        <soap:body namespace="http://service.ws.ptl.md.tlabs.org/" use="literal"/>
+      <wsdl:output name="accountActivationOpNResponse">
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="CustomerBaseGeneralSN">
     <wsdl:port binding="tns:CustomerBaseGeneralSNSoapBinding" name="CustomerBaseGeneralPN">
-      <soap:address location="http://localhost:8888/tlabs-md-cbs/customerBaseGeneralAddress"/>
+      <soap:address location="http://localhost:8181/cxf/customerBaseGeneralAddress"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
