@@ -4,10 +4,14 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.joda.time.LocalDateTime;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tlabs.md.cbs.integration.registration.*;
+
+import java.time.Instant;
+import java.util.UUID;
 
 public class NewUserRegistrationStep {
 
@@ -41,10 +45,10 @@ public class NewUserRegistrationStep {
         personalDataDTO.setSurname("Doe");
 
         PersonalContactDTO personalContactDTO = objectFactory.createPersonalContactDTO();
-        personalContactDTO.setEmailAddress("jon.doe@example.org");
+        personalContactDTO.setEmailAddress("jon.doe."+ UUID.randomUUID().toString()+"@example.org");
 
         PersonalCredentialDTO personalCredentialDTO = objectFactory.createPersonalCredentialDTO();
-        personalCredentialDTO.setUsername("j.doe");
+        personalCredentialDTO.setUsername("j.doe." + UUID.randomUUID().toString());
         personalCredentialDTO.setPassword("12345678");
 
         newUserRegistrationRequest.setPersonalData(personalDataDTO);
