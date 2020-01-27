@@ -14,23 +14,30 @@ import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tlabs.md.cbs.integration.general.*;
+import org.tlabs.md.cbs.integration.registration.NewUserRegistrationRequest;
 import org.tlabs.md.cbs.integration.util.ClientPasswordCallback;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class AccountActivationStep {
 
     private static final Logger logger = LoggerFactory.getLogger(AccountActivationStep.class);
 
+    NewUserRegistrationStep newUserRegistrationStep;
     ObjectFactory objectFactory = new ObjectFactory();
 
     ActivationAccountRequest activationAccountRequest;
     ActivationAccountResponse activationAccountResponse;
 
+    String username;
+    String password;
+
     CustomerBaseGeneralN customerBaseWs;
 
+    public AccountActivationStep(NewUserRegistrationStep newUserRegistrationStep) {
+        this.newUserRegistrationStep = newUserRegistrationStep;
+    }
 
     @Given("Software Agent must activate a user's account")
     public void prepareSoftwareAgent() throws Throwable {
@@ -44,8 +51,16 @@ public class AccountActivationStep {
 
         logger.info("SOAP Request Preparing");
 
+        newUserRegistrationStep.prepareSoftwareAgent();
+        NewUserRegistrationRequest newUserRegistrationRequest = newUserRegistrationStep.prepareRequest();
+        newUserRegistrationStep.sendRequest();
+
+        String activationCode = newUserRegistrationStep.handleResponse();
+        username = newUserRegistrationRequest.getPersonalCredential().getUsername();
+        password = newUserRegistrationRequest.getPersonalCredential().getPassword();
+
         activationAccountRequest = objectFactory.createActivationAccountRequest();
-        activationAccountRequest.setActivationCode(UUID.randomUUID().toString());
+        activationAccountRequest.setActivationCode(activationCode);
     }
 
     @When("Agent software sends the activation request to the system")
@@ -58,7 +73,7 @@ public class AccountActivationStep {
         Map outProps = new HashMap();
 
         outProps.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN);
-        outProps.put(WSHandlerConstants.USER, "coder");
+        outProps.put(WSHandlerConstants.USER, username);
         outProps.put(WSHandlerConstants.PASSWORD_TYPE, WSConstants.PW_TEXT);
         outProps.put(WSHandlerConstants.PW_CALLBACK_CLASS, ClientPasswordCallback.class.getName());
 

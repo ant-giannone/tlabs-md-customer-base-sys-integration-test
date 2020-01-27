@@ -33,7 +33,7 @@ public class NewUserRegistrationStep {
     }
 
     @And("Agent software prepares the registration request by filling it with the following data: Name, Surname, Date of birth, Email, Username and Password.")
-    public void prepareRequest() throws Throwable {
+    public NewUserRegistrationRequest prepareRequest() throws Throwable {
 
         logger.info("SOAP Request Preparing");
 
@@ -54,6 +54,8 @@ public class NewUserRegistrationStep {
         newUserRegistrationRequest.setPersonalData(personalDataDTO);
         newUserRegistrationRequest.setPersonalContact(personalContactDTO);
         newUserRegistrationRequest.setPersonalCredential(personalCredentialDTO);
+
+        return newUserRegistrationRequest;
     }
 
     @When("Agent software sends the registration request to the system.")
@@ -65,11 +67,13 @@ public class NewUserRegistrationStep {
     }
 
     @Then("The system returns a response containing the following information: operation result code, account activation link")
-    public void handleResponse() throws Throwable {
+    public String handleResponse() throws Throwable {
 
         logger.info("Handle Response");
 
         Assert.assertNotNull(newUserRegistrationResponse);
         Assert.assertTrue("NUR-S00".equals(newUserRegistrationResponse.getOperationCode()));
+
+        return newUserRegistrationResponse.getAccountActivationCode();
     }
 }

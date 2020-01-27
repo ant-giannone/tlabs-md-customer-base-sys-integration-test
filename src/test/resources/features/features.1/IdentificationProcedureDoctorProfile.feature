@@ -1,4 +1,4 @@
-@cbs-integration
+@cbs-integration-identification-procedure
 Feature: I'm a Doctor
 
   As a software agent

@@ -1,4 +1,4 @@
-@cbs-integration
+@cbs-integration-activation-code
 Feature: Activation Account
 
   As a software agent

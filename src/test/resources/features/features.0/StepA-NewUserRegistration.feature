@@ -1,4 +1,4 @@
-@cbs-integration
+@cbs-integration-registration-user
 Feature: You can register as a new user to find a doctor or be able to propose yourself as a
 
   As a software agent

@@ -10,6 +10,6 @@ public class ClientPasswordCallback implements CallbackHandler {
     public void handle(Callback[] callbacks) {
 
         WSPasswordCallback pc = (WSPasswordCallback) callbacks[0];
-        pc.setPassword("coder");
+        pc.setPassword("12345678");
     }
 }
